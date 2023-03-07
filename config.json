@@ -1,0 +1,25 @@
+{
+  "files": [
+    {
+      "name": "patch-5.mpq",
+      "path": "Data",
+      "etag": "rr0psg1kymka",
+      "url": "https://duskhaven.raizo.dev/patch-5.mpq"
+    },
+    {
+      "name": "patch-Z.mpq",
+      "path": "Data",
+      "etag": "rr0q7t1hi8wae",
+      "url": "https://duskhaven.raizo.dev/patch-Z.mpq"
+    },
+    {
+      "name": "wow.exe",
+      "path": "",
+      "etag": "rr0prg4l4m0",
+      "url": "https://duskhaven.raizo.dev/wow.exe"
+    }
+  ],
+  "wow": "https://duskhaven.raizo.dev/wow-3-3-5.zip",
+  "path": "./duskhaven-wow",
+  "realmlist": "set realmlist duskhaven.servegame.com"
+}

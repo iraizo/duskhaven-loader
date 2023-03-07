@@ -1,6 +1,22 @@
-[workspace]
+[package]
+name = "launcher"
+version = "0.1.0"
+edition = "2021"
 
-members = [
-    "installer",
-    "launcher"
-]
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1.0.69"
+clap = {version="4.1.8", features = ["derive", "env"]}
+eframe = "0.21.3"
+egui = "0.21.0"
+flowync = "5.1.0"
+lazy_static = "1.4.0"
+native-dialog = "0.6.3"
+reqwest = {version="0.11.14", features = ["blocking"]}
+serde = {version ="1.0.152", features = ["serde_derive"]}
+serde_json = "1.0.94"
+tokio = { version = "1", features = ["net", "rt-multi-thread"] }
+windows = {version="0.44.0", features=["Win32_System_WindowsProgramming", "Win32_Foundation"]}
+rfd = "0.11"
+zip = "0.6.4"
