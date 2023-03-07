@@ -1,1 +1,0 @@
-C:\Users\raizo\Desktop\duskhaven-loader\target\debug\launcher.exe: C:\Users\raizo\Desktop\duskhaven-loader\src\config.rs C:\Users\raizo\Desktop\duskhaven-loader\src\installer.rs C:\Users\raizo\Desktop\duskhaven-loader\src\main.rs C:\Users\raizo\Desktop\duskhaven-loader\src\ui\mod.rs C:\Users\raizo\Desktop\duskhaven-loader\src\updater.rs
