@@ -25,30 +25,45 @@ impl Updater {
             ctx.request_repaint();
             status_tx.send("Updating..".to_owned()).unwrap();
 
-            // overwrite the realmlist since i cba to check if it's outdated
-            let dir = fs::read_dir(&path)
+            // find the data folder
+            let dir: Vec<_> = fs::read_dir(&path)
                 .unwrap()
-                .filter(|entry| entry.as_ref().unwrap().file_type().unwrap().is_dir());
+                .filter(|entry| {
+                    if let Ok(entry) = entry {
+                        return entry.file_name() == "Data";
+                    } else {
+                        false
+                    }
+                })
+                .collect();
 
-            for entry in dir {
-                println!(
-                    "{}",
-                    format!(
-                        "{}\\realmlist.wtf",
-                        entry.as_ref().unwrap().path().display()
-                    )
-                );
+            // find the lang specific folder
+            let lang_path: Vec<_> = fs::read_dir(dir[0].as_ref().clone().unwrap().path())
+                .unwrap()
+                .filter(|entry| entry.as_ref().unwrap().file_type().unwrap().is_dir())
+                .collect();
 
+            let mut file = OpenOptions::new()
+                .write(true)
+                .truncate(true)
+                .append(false)
+                .open(format!(
+                    "{}\\realmlist.wtf",
+                    lang_path[0].as_ref().unwrap().path().display()
+                ))
+                .unwrap();
+
+            file.write_all(list.as_bytes()).unwrap();
+
+            /*   for entry in dir {
+                let entry = entry.unwrap();
                 let mut file = OpenOptions::new()
                     .write(true)
-                    .open(format!(
-                        "{}\\realmlist.wtf",
-                        entry.unwrap().path().display()
-                    ))
+                    .open(format!("{}\\Data\\realmlist.wtf", entry.path().display()))
                     .unwrap();
 
                 file.write_all(list.as_bytes()).unwrap();
-            }
+            } */
 
             for file in &files {
                 let res = reqwest::get(&file.url).await.unwrap();
