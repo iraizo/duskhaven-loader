@@ -49,7 +49,13 @@ pub struct Configuration {
 
 impl Configuration {
     pub fn write(&self) {
-        let mut file = OpenOptions::new().write(true).open("config.json").unwrap();
+        let mut file = OpenOptions::new()
+            .append(false)
+            .write(true)
+            .truncate(true)
+            .open("config.json")
+            .unwrap();
+        println!("Writing: {:#?}", self);
         file.write_all(serde_json::to_string_pretty(self).unwrap().as_bytes())
             .unwrap();
     }
