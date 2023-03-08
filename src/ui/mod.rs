@@ -27,6 +27,7 @@ pub struct Ui {
     pub status_text: String,
     pub install_status: bool,
     pub progress: f64,
+    pub server_message: String,
 
     tx: Sender<u32>,
     rx: Receiver<u32>,
@@ -82,6 +83,9 @@ impl Ui {
 
             tx_status.send("Idle".to_owned()).unwrap();
 
+
+            let news = reqwest::blocking::get("https://raw.githubusercontent.com/Duskhaven/alert2/main/serveralert2").unwrap().text().unwrap();
+
             return Self {
                 name: String::from_utf8_lossy(&user[..user_len as usize]).to_string(),
                 cfg,
@@ -97,6 +101,7 @@ impl Ui {
                 rx_status,
                 tx_progress_install,
                 rx_progress_install,
+                server_message: news,
                 install_status: false,
             };
         }
@@ -143,6 +148,9 @@ impl eframe::App for Ui {
                     ui.label("Click Install if you want to have a full install or Update if you want to patch a current wow 3.3.5a installation");
                     ui.add_space(5.0);
                     ui.label("remember to set your wow folder in the settings if you want to patch your current installation");
+                    ui.add_space(20.0);
+
+                    
                 }
                 1 => {
                     ui.heading("Settings");
@@ -150,7 +158,7 @@ impl eframe::App for Ui {
                     ui.label("Set your game path here");
                     if ui.button("Select Folder").clicked() {
                         if let Some(path) = rfd::FileDialog::new().pick_folder() {
-                            self.cfg.path = Some(path.display().to_string()).unwrap();
+                            self.cfg.path = Some(path.into_os_string().into_string().unwrap()).unwrap();
                             self.cfg.write();
                         }
                     }
@@ -212,20 +220,13 @@ impl eframe::App for Ui {
                 }
 
                 if ui.button("Install").clicked() {
-                    Updater::new(self.cfg.clone()).install_patches(
-                        self.tx_progress_install.clone(),
-                        self.tx_status.clone(),
-                        self.tx.clone(),
-                        ctx.clone(),
-                    );
-                    /*
                     Installer::new(self.cfg.clone()).clean_install(
                         self.tx_status.clone(),
                         self.tx_install.clone(),
                         self.tx.clone(),
                         self.tx_progress_install.clone(),
                         ctx.clone(),
-                    ); */
+                    ); 
                 }
 
                 if let Ok(status) = self.rx_status.try_recv() {

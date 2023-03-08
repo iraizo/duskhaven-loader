@@ -12,7 +12,7 @@ use updater::Updater;
 
 fn main() {
     let options = eframe::NativeOptions {
-        initial_window_size: Some(egui::vec2(1920.0, 1080.0)),
+        initial_window_size: Some(egui::vec2(1200.0, 800.0)),
         centered: true,
         ..Default::default()
     };

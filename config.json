@@ -19,7 +19,7 @@
       "url": "https://duskhaven.raizo.dev/wow.exe"
     }
   ],
+  "path": "C:\\Users\\raizo\\Desktop\\duskhaven-loader\\testing",
   "wow": "https://duskhaven.raizo.dev/wow-3-3-5.zip",
-  "path": "./duskhaven-wow",
   "realmlist": "set realmlist duskhaven.servegame.com"
 }
